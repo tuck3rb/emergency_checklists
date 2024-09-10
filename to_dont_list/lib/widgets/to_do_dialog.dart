@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 typedef ToDoListAddedCallback = Function(
-    String value, TextEditingController textConroller);
+    String value, TextEditingController textController);
 
 class ToDoDialog extends StatefulWidget {
   const ToDoDialog({
@@ -39,24 +39,12 @@ class _ToDoDialogState extends State<ToDoDialog> {
         decoration: const InputDecoration(hintText: "type something here"),
       ),
       actions: <Widget>[
-        ElevatedButton(
-          key: const Key("OKButton"),
-          style: yesStyle,
-          child: const Text('OK'),
-          onPressed: () {
-            setState(() {
-              Navigator.pop(context);
-            });
-          },
-        ),
-
-        // https://stackoverflow.com/questions/52468987/how-to-turn-disabled-button-into-enabled-button-depending-on-conditions
         ValueListenableBuilder<TextEditingValue>(
           valueListenable: _inputController,
           builder: (context, value, child) {
             return ElevatedButton(
-              key: const Key("CancelButton"),
-              style: noStyle,
+              key: const Key("OKButton"),
+              style: yesStyle,
               onPressed: value.text.isNotEmpty
                   ? () {
                       setState(() {
@@ -65,8 +53,21 @@ class _ToDoDialogState extends State<ToDoDialog> {
                       });
                     }
                   : null,
-              child: const Text('Cancel'),
+                child: const Text('OK'),
             );
+          },
+        ),
+        // https://stackoverflow.com/questions/52468987/how-to-turn-disabled-button-into-enabled-button-depending-on-conditions
+
+
+        ElevatedButton(
+          key: const Key("CancelButton"),
+          style: noStyle,
+          child: const Text('Cancel'),
+          onPressed: () {
+            setState(() {
+              Navigator.pop(context);
+            });
           },
         ),
       ],

@@ -113,23 +113,37 @@ class _ToDoListState extends State<ToDoList> {
   }
 }
 
-class ChecklistDetailsScreen extends StatelessWidget {
+class ChecklistDetailsScreen extends StatefulWidget {
   final String title;
+  // final String info;
 
   const ChecklistDetailsScreen({super.key, required this.title});
 
   @override
+  _ChecklistDetailsScreenState createState() => _ChecklistDetailsScreenState();
+
+}
+
+class _ChecklistDetailsScreenState extends State<ChecklistDetailsScreen> {
+  @override
   Widget build(BuildContext context) {
+    final steps = checklistSteps[widget.title] ?? [];
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(widget.title),
       ),
-      body: Center(
-        child: Text(title),
+      body: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        children: steps.map((step) {
+          return ListTile(
+            title: Text(step),
+          );
+        }).toList(),
       ),
     );
   }
 }
+
 
 void main() {
   runApp(const MaterialApp(

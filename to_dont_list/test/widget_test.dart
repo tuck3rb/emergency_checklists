@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:to_dont_list/main.dart';
-import 'package:to_dont_list/objects/item.dart';
-import 'package:to_dont_list/widgets/to_do_items.dart';
+import 'package:to_dont_list/objects/checklist_item.dart';
+import 'package:to_dont_list/widgets/checklist_list_item.dart';
 
 void main() {
   test('Item abbreviation should be first letter', () { //
-    const item = Item(name: "add more todos");
+    const item = ChecklistItem(name: "add more todos");
     expect(item.abbrev(), "a");
   });
 
@@ -23,10 +23,10 @@ void main() {
     await tester.pumpWidget(MaterialApp(
         home: Scaffold(
             body: ToDoListItem(
-                item: const Item(name: "test"),
+                item: const ChecklistItem(name: "test"),
                 completed: true,
-                onListChanged: (Item item, bool completed) {},
-                onDeleteItem: (Item item) {}))));
+                onListChanged: (ChecklistItem item, bool completed) {},
+                onDeleteItem: (ChecklistItem item) {}))));
     final textFinder = find.text('test');
 
     // Use the `findsOneWidget` matcher provided by flutter_test to verify
@@ -39,10 +39,10 @@ void main() {
     await tester.pumpWidget(MaterialApp(
         home: Scaffold(
             body: ToDoListItem(
-                item: const Item(name: "test"),
+                item: const ChecklistItem(name: "test"),
                 completed: true,
-                onListChanged: (Item item, bool completed) {},
-                onDeleteItem: (Item item) {}))));
+                onListChanged: (ChecklistItem item, bool completed) {},
+                onDeleteItem: (ChecklistItem item) {}))));
     final abbvFinder = find.text('t');
     final avatarFinder = find.byType(CircleAvatar);
 
@@ -57,7 +57,7 @@ void main() {
   });
 
   testWidgets('Default ToDoList has one item', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: ToDoList()));
+    await tester.pumpWidget(const MaterialApp(home: EmergencyChecklist()));
 
     final listItemFinder = find.byType(ToDoListItem);
 
@@ -65,7 +65,7 @@ void main() {
   });
 
   testWidgets('Clicking and Typing adds item to ToDoList', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: ToDoList()));
+    await tester.pumpWidget(const MaterialApp(home: EmergencyChecklist()));
 
     expect(find.byType(TextField), findsNothing);
 

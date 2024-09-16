@@ -1,7 +1,7 @@
 // Started with https://docs.flutter.dev/development/ui/widgets-intro
 import 'package:flutter/material.dart';
-import 'package:to_dont_list/objects/item.dart';
-import 'package:to_dont_list/widgets/to_do_items.dart';
+import 'package:to_dont_list/objects/checklist_item.dart';
+import 'package:to_dont_list/widgets/checklist_list_item.dart';
 import 'package:to_dont_list/widgets/to_do_dialog.dart';
 
 class ToDoList extends StatefulWidget {

@@ -100,9 +100,39 @@ class _ToDoListState extends State<ToDoList> {
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         children: checklists.map((checklistName) {
           return ListTile(
+            leading: const CircleAvatar(
+              backgroundColor: Colors.red,
+              child: Icon(Icons.warning_amber_rounded, color: Colors.white),
+            ),
             title: Text(checklistName),
+            onTap: () {
+              Navigator.push(
+                context, 
+                MaterialPageRoute(
+                  builder: (context) => ChecklistDetailsScreen(title: checklistName),
+                  )
+                );
+            },
           );
         }).toList(),
+      ),
+    );
+  }
+}
+
+class ChecklistDetailsScreen extends StatelessWidget {
+  final String title;
+
+  const ChecklistDetailsScreen({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: Center(
+        child: Text(title),
       ),
     );
   }
@@ -111,7 +141,7 @@ class _ToDoListState extends State<ToDoList> {
 void main() {
   runApp(const MaterialApp(
     title: 'Emergency Checklists',
-    home: ToDoList(title: 'Engine Failure Checklist',),
+    home: ToDoList(title: 'Emergency Checklists',),
   ));
 }
 

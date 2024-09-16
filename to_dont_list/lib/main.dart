@@ -54,35 +54,6 @@ class _ToDoListState extends State<ToDoList> {
     });
   }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         appBar: AppBar(
-//           title: Text(widget.title),
-//         ),
-//         body: ListView(
-//           padding: const EdgeInsets.symmetric(vertical: 8.0),
-//           children: items.map((item) {
-//             return ChecklistListItem(
-//               item: item,
-//               completed: _itemSet.contains(item),
-//               onListChanged: _handleListChanged,
-//               onDeleteItem: _handleDeleteItem,
-//             );
-//           }).toList(),
-//         ),
-//         floatingActionButton: FloatingActionButton(
-//             child: const Icon(Icons.add),
-//             onPressed: () {
-//               showDialog(
-//                   context: context,
-//                   builder: (_) {
-//                     return ToDoDialog(onListAdded: _handleNewItem);
-//                   });
-//             }));
-//   }
-// }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,6 +96,18 @@ class ChecklistDetailsScreen extends StatefulWidget {
 }
 
 class _ChecklistDetailsScreenState extends State<ChecklistDetailsScreen> {
+  final Set<String> _completedItems = {};
+
+  void _handleListChanged(ChecklistItem item, bool completed) {
+    setState(() {
+      if (completed) {
+        _completedItems.remove(item.name);
+      } else {
+        _completedItems.add(item.name);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final steps = checklistSteps[widget.title] ?? [];
@@ -135,8 +118,12 @@ class _ChecklistDetailsScreenState extends State<ChecklistDetailsScreen> {
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         children: steps.map((step) {
-          return ListTile(
-            title: Text(step),
+          // final item = ChecklistItem(name: step);
+          return ChecklistListItem(
+            item: ChecklistItem(name: step),
+            completed: _completedItems.contains(step),
+            onListChanged: _handleListChanged,
+            onDeleteItem: (_) {},
           );
         }).toList(),
       ),

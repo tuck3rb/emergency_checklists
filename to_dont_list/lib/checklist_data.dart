@@ -4,7 +4,7 @@ const Icon warningIcon = Icon(Icons.warning_amber_rounded, color: Colors.white);
 
 List<String> checklists = [
   'Engine Failure (In-Flight Restart)',
-  'Engine Fire in Flight',
+  'Engine Fire in-Flight',
   'Cabin Fire during Flight',
   'Forced Landing',
   'Spin Recovery',
@@ -55,6 +55,5 @@ Map<String, List<String>> checklistSteps = {
     'Ailerons - NEUTRAL',
     'Rudder - OPPOSITE OF SPIN',
     'Elevator - FORWARD',
-  ]
-
+  ],
 };

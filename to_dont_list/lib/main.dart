@@ -2,15 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:to_dont_list/objects/checklist_item.dart';
 import 'package:to_dont_list/widgets/checklist_list_item.dart';
-import 'package:to_dont_list/widgets/to_do_dialog.dart';
-
-List<String> checklists = [
-  'Engine Failure',
-  'Engine Fire in Flight',
-  'Electrical Fire in Flight',
-  'Emergency Landing',
-  'Spin Recovery',
-];
+import 'package:to_dont_list/widgets/checklist_dialog.dart';
+import 'checklist_data.dart';
 
 class ToDoList extends StatefulWidget {
   final String title;
@@ -102,7 +95,7 @@ class _ToDoListState extends State<ToDoList> {
           return ListTile(
             leading: const CircleAvatar(
               backgroundColor: Colors.red,
-              child: Icon(Icons.warning_amber_rounded, color: Colors.white),
+              child: warningIcon,
             ),
             title: Text(checklistName),
             onTap: () {

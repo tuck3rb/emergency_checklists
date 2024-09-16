@@ -12,10 +12,10 @@ class ToDoList extends StatefulWidget {
 }
 
 class _ToDoListState extends State<ToDoList> {
-  final List<Item> items = [const Item(name: "add more todos")];
-  final _itemSet = <Item>{};
+  final List<ChecklistItem> items = [const ChecklistItem(name: "add more todos")];
+  final _itemSet = <ChecklistItem>{};
 
-  void _handleListChanged(Item item, bool completed) {
+  void _handleListChanged(ChecklistItem item, bool completed) {
     setState(() {
       // When a user changes what's in the list, you need
       // to change _itemSet inside a setState call to
@@ -36,7 +36,7 @@ class _ToDoListState extends State<ToDoList> {
     });
   }
 
-  void _handleDeleteItem(Item item) {
+  void _handleDeleteItem(ChecklistItem item) {
     setState(() {
       print("Deleting item");
       items.remove(item);
@@ -46,7 +46,7 @@ class _ToDoListState extends State<ToDoList> {
   void _handleNewItem(String itemText, TextEditingController textController) {
     setState(() {
       print("Adding new item");
-      Item item = Item(name: itemText);
+      ChecklistItem item = ChecklistItem(name: itemText);
       items.insert(0, item);
       textController.clear();
     });

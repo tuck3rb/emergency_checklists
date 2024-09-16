@@ -57,7 +57,7 @@ void main() {
   });
 
   testWidgets('Default ToDoList has one item', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: EmergencyChecklist()));
+    await tester.pumpWidget(const MaterialApp(home: ToDoList()));
 
     final listItemFinder = find.byType(ToDoListItem);
 
@@ -65,7 +65,7 @@ void main() {
   });
 
   testWidgets('Clicking and Typing adds item to ToDoList', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: EmergencyChecklist()));
+    await tester.pumpWidget(const MaterialApp(home: ToDoList()));
 
     expect(find.byType(TextField), findsNothing);
 

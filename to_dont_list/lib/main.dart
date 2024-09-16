@@ -4,8 +4,17 @@ import 'package:to_dont_list/objects/checklist_item.dart';
 import 'package:to_dont_list/widgets/checklist_list_item.dart';
 import 'package:to_dont_list/widgets/to_do_dialog.dart';
 
+List<String> checklists = [
+  'Engine Failure',
+  'Engine Fire in Flight',
+  'Electrical Fire in Flight',
+  'Emergency Landing',
+  'Spin Recovery',
+];
+
 class ToDoList extends StatefulWidget {
-  const ToDoList({super.key});
+  final String title;
+  const ToDoList({super.key, required this.title});
 
   @override
   State createState() => _ToDoListState();
@@ -52,38 +61,57 @@ class _ToDoListState extends State<ToDoList> {
     });
   }
 
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         appBar: AppBar(
+//           title: Text(widget.title),
+//         ),
+//         body: ListView(
+//           padding: const EdgeInsets.symmetric(vertical: 8.0),
+//           children: items.map((item) {
+//             return ChecklistListItem(
+//               item: item,
+//               completed: _itemSet.contains(item),
+//               onListChanged: _handleListChanged,
+//               onDeleteItem: _handleDeleteItem,
+//             );
+//           }).toList(),
+//         ),
+//         floatingActionButton: FloatingActionButton(
+//             child: const Icon(Icons.add),
+//             onPressed: () {
+//               showDialog(
+//                   context: context,
+//                   builder: (_) {
+//                     return ToDoDialog(onListAdded: _handleNewItem);
+//                   });
+//             }));
+//   }
+// }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('To Do List'),
-        ),
-        body: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          children: items.map((item) {
-            return ToDoListItem(
-              item: item,
-              completed: _itemSet.contains(item),
-              onListChanged: _handleListChanged,
-              onDeleteItem: _handleDeleteItem,
-            );
-          }).toList(),
-        ),
-        floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () {
-              showDialog(
-                  context: context,
-                  builder: (_) {
-                    return ToDoDialog(onListAdded: _handleNewItem);
-                  });
-            }));
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        children: checklists.map((checklistName) {
+          return ListTile(
+            title: Text(checklistName),
+          );
+        }).toList(),
+      ),
+    );
   }
 }
 
 void main() {
   runApp(const MaterialApp(
-    title: 'To Do List',
-    home: ToDoList(),
+    title: 'Emergency Checklists',
+    home: ToDoList(title: 'Engine Failure Checklist',),
   ));
 }
+

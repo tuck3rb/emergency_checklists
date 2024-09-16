@@ -22,7 +22,7 @@ void main() {
   testWidgets('ToDoListItem has a text', (tester) async {
     await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-            body: ToDoListItem(
+            body: ChecklistListItem(
                 item: const ChecklistItem(name: "test"),
                 completed: true,
                 onListChanged: (ChecklistItem item, bool completed) {},
@@ -38,7 +38,7 @@ void main() {
       (tester) async {
     await tester.pumpWidget(MaterialApp(
         home: Scaffold(
-            body: ToDoListItem(
+            body: ChecklistListItem(
                 item: const ChecklistItem(name: "test"),
                 completed: true,
                 onListChanged: (ChecklistItem item, bool completed) {},
@@ -57,15 +57,15 @@ void main() {
   });
 
   testWidgets('Default ToDoList has one item', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: ToDoList()));
+    await tester.pumpWidget(const MaterialApp(home: ToDoList(title: 'Test Title',)));
 
-    final listItemFinder = find.byType(ToDoListItem);
+    final listItemFinder = find.byType(ChecklistListItem);
 
     expect(listItemFinder, findsOneWidget);
   });
 
   testWidgets('Clicking and Typing adds item to ToDoList', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: ToDoList()));
+    await tester.pumpWidget(const MaterialApp(home: ToDoList(title: 'Test Title',)));
 
     expect(find.byType(TextField), findsNothing);
 
@@ -81,7 +81,7 @@ void main() {
     await tester.pump();
     expect(find.text("hi"), findsOneWidget);
 
-    final listItemFinder = find.byType(ToDoListItem);
+    final listItemFinder = find.byType(ChecklistListItem);
 
     expect(listItemFinder, findsNWidgets(2));
   });

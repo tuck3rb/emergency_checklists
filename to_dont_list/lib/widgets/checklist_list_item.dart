@@ -4,8 +4,8 @@ import 'package:to_dont_list/objects/checklist_item.dart';
 typedef ToDoListChangedCallback = Function(ChecklistItem item, bool completed);
 typedef ToDoListRemovedCallback = Function(ChecklistItem item);
 
-class ToDoListItem extends StatelessWidget {
-  ToDoListItem(
+class ChecklistListItem extends StatelessWidget {
+  ChecklistListItem(
       {required this.item,
       required this.completed,
       required this.onListChanged,

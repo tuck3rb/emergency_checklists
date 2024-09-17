@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:to_dont_list/objects/course.dart';
 
 typedef ToDoListAddedCallback = Function(
-    String value, TextEditingController textController);
+    String value, TextEditingController textController, Course course);
 
 class ToDoDialog extends StatefulWidget {
   const ToDoDialog({
@@ -48,7 +49,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
               onPressed: value.text.isNotEmpty
                   ? () {
                       setState(() {
-                        widget.onListAdded(valueText, _inputController);
+                        widget.onListAdded(valueText, _inputController, const Course(name: 'Course', color: Color.fromARGB(255, 0, 250, 255)));
                         Navigator.pop(context);
                       });
                     }

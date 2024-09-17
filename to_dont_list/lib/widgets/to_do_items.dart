@@ -26,7 +26,7 @@ class ToDoListItem extends StatelessWidget {
 
     return completed //
         ? Colors.black54
-        : item.color;
+        : item.course.color;
   }
 
   TextStyle? _getTextStyle(BuildContext context) {

@@ -1,5 +1,6 @@
 // Started with https://docs.flutter.dev/development/ui/widgets-intro
 import 'package:flutter/material.dart';
+import 'package:to_dont_list/objects/course.dart';
 import 'package:to_dont_list/objects/item.dart';
 import 'package:to_dont_list/widgets/to_do_items.dart';
 import 'package:to_dont_list/widgets/to_do_dialog.dart';
@@ -12,7 +13,8 @@ class ToDoList extends StatefulWidget {
 }
 
 class _ToDoListState extends State<ToDoList> {
-  final List<Item> items = [const Item(name: "add more todos", color: Color.fromARGB(255, 0, 255, 0))];
+  final List<Course> courses = [const Course(name: "Course", color: Color.fromARGB(255, 42, 101, 42))];
+  final List<Item> items = [const Item(name: "add more todos", course: Course(name: 'Course', color: Color.fromARGB(255, 42, 101, 42)))];
   final _itemSet = <Item>{};
 
   void _handleListChanged(Item item, bool completed) {
@@ -43,10 +45,10 @@ class _ToDoListState extends State<ToDoList> {
     });
   }
 
-  void _handleNewItem(String itemText, TextEditingController textController) {
+  void _handleNewItem(String itemText, TextEditingController textController, Course course) {
     setState(() {
       print("Adding new item");
-      Item item = Item(name: itemText, color: const Color.fromARGB(255, 255, 0, 0));
+      Item item = Item(name: itemText, course: course);
       items.insert(0, item);
       textController.clear();
     });

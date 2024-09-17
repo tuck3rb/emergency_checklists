@@ -28,7 +28,7 @@ class _AddChecklistDialogState extends State<AddChecklistDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Add New Checklist'),
+      title: const Text('Add New Step'),
       content: TextField(
         onChanged: (value) {
           setState(() {

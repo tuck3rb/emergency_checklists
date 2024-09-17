@@ -54,6 +54,21 @@ class _ToDoListState extends State<ToDoList> {
     });
   }
 
+  void _addNewChecklist() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AddChecklistDialog(
+          onListAdded: (String newChecklistName, TextEditingController controller) {
+            setState(() {
+              checklists.add(newChecklistName);
+            });
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,6 +94,10 @@ class _ToDoListState extends State<ToDoList> {
             },
           );
         }).toList(),
+      ),
+      floatingActionButton: FloatingActionButton(
+      onPressed: _addNewChecklist,
+      child: const Icon(Icons.add),
       ),
     );
   }

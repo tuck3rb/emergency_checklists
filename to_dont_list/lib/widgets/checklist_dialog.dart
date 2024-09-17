@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 typedef ToDoListAddedCallback = Function(
     String value, TextEditingController textConroller);
 
-class ToDoDialog extends StatefulWidget {
-  const ToDoDialog({
+class AddChecklistDialog extends StatefulWidget {
+  const AddChecklistDialog({
     super.key,
     required this.onListAdded,
   });
@@ -12,10 +12,10 @@ class ToDoDialog extends StatefulWidget {
   final ToDoListAddedCallback onListAdded;
 
   @override
-  State<ToDoDialog> createState() => _ToDoDialogState();
+  State<AddChecklistDialog> createState() => _AddChecklistDialogState();
 }
 
-class _ToDoDialogState extends State<ToDoDialog> {
+class _AddChecklistDialogState extends State<AddChecklistDialog> {
   // Dialog with text from https://www.appsdeveloperblog.com/alert-dialog-with-a-text-field-in-flutter/
   final TextEditingController _inputController = TextEditingController();
   final ButtonStyle yesStyle = ElevatedButton.styleFrom(
@@ -28,7 +28,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Item To Add'),
+      title: const Text('Add New Checklist'),
       content: TextField(
         onChanged: (value) {
           setState(() {
@@ -36,7 +36,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
           });
         },
         controller: _inputController,
-        decoration: const InputDecoration(hintText: "type something here"),
+        decoration: const InputDecoration(hintText: "Checklist name"),
       ),
       actions: <Widget>[
         ElevatedButton(

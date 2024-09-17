@@ -62,6 +62,7 @@ class _ToDoListState extends State<ToDoList> {
           onListAdded: (String newChecklistName, TextEditingController controller) {
             setState(() {
               checklists.add(newChecklistName);
+              checklistSteps[newChecklistName] = [];
             });
           },
         );
@@ -127,6 +128,21 @@ class _ChecklistDetailsScreenState extends State<ChecklistDetailsScreen> {
     });
   }
 
+  void _addStep() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AddChecklistDialog(
+          onListAdded: (String newStep, TextEditingController controller) {
+            setState(() {
+              checklistSteps[widget.title]?.add(newStep);
+            });
+          },
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final steps = checklistSteps[widget.title] ?? [];
@@ -146,9 +162,15 @@ class _ChecklistDetailsScreenState extends State<ChecklistDetailsScreen> {
           );
         }).toList(),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _addStep,
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
+
+
 
 
 void main() {

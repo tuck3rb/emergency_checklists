@@ -11,7 +11,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:to_dont_list/main.dart';
 import 'package:to_dont_list/objects/checklist_item.dart';
 import 'package:to_dont_list/widgets/checklist_list_item.dart';
-import 'package:to_dont_list/widgets/checklist_dialog.dart';
 import 'package:to_dont_list/checklist_data.dart';
 
 void main() {
@@ -89,20 +88,36 @@ void main() {
   });
 
   testWidgets('Adding new checklist updates the list', (tester) async {
-  await tester.pumpWidget(const MaterialApp(home: ToDoList(title: 'Test Title')));
+    await tester.pumpWidget(const MaterialApp(home: ToDoList(title: 'Test Title')));
 
-  final initialChecklistCount = checklists.length;
+    final initialChecklistCount = checklists.length;
 
-  await tester.tap(find.byType(FloatingActionButton));
-  await tester.pumpAndSettle();
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pump();
 
-  await tester.enterText(find.byType(TextField), 'New Checklist');
-  await tester.tap(find.text('OK'));
-  await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField), 'New Checklist');
+    await tester.tap(find.text('OK'));
+    await tester.pump();
 
-  expect(checklists.length, initialChecklistCount + 1);
-  expect(find.text('New Checklist'), findsOneWidget);
-});
+    expect(checklists.length, initialChecklistCount + 1);
+    expect(find.text('New Checklist'), findsOneWidget);
+  });
+
+  testWidgets('Can navigate to a new checklist', (tester) async {
+    await tester.pumpWidget(const MaterialApp(home: ToDoList(title: 'Test Title')));
+
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pump();
+    await tester.enterText(find.byType(TextField), 'New Checklist'); // Creating new checklist
+    await tester.tap(find.text('OK'));
+    await tester.pump();
+
+    await tester.tap(find.text('New Checklist'));
+    await tester.pump();
+
+    expect(find.text('New Checklist'), findsOneWidget);
+    expect(find.byType(FloatingActionButton), findsOneWidget);
+  });
 
   // One to test the tap and press actions on the items?
 }

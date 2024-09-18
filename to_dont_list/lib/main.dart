@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_dont_list/objects/course.dart';
 import 'package:to_dont_list/objects/item.dart';
+import 'package:to_dont_list/widgets/new_course_dialog.dart';
 import 'package:to_dont_list/widgets/to_do_items.dart';
 import 'package:to_dont_list/widgets/to_do_dialog.dart';
 
@@ -16,6 +17,7 @@ class _ToDoListState extends State<ToDoList> {
   final List<Course> courses = [const Course(name: "Course", color: Color.fromARGB(255, 42, 101, 42))];
   final List<Item> items = [const Item(name: "add more todos", course: Course(name: 'Course', color: Color.fromARGB(255, 42, 101, 42)))];
   final _itemSet = <Item>{};
+  final _courseSet = <Course>{};
 
   void _handleListChanged(Item item, bool completed) {
     setState(() {
@@ -54,11 +56,62 @@ class _ToDoListState extends State<ToDoList> {
     });
   }
 
+   void _handleCourseListChanged(Course course, bool completed) {
+    setState(() {
+      // When a user changes what's in the list, you need
+      // to change _itemSet inside a setState call to
+      // trigger a rebuild.
+      // The framework then calls build, below,
+      // which updates the visual appearance of the app.
+
+      courses.remove(course);
+      if (!completed) {
+        print("Completing");
+        _courseSet.add(course);
+        courses.add(course);
+      } else {
+        print("Making Undone");
+        _courseSet.remove(course);
+        courses.insert(0, course);
+      }
+    });
+  }
+
+  void _handleDeleteCourse(Course course) {
+    setState(() {
+      print("Deleting course");
+      courses.remove(course);
+    });
+  }
+
+  void _handleNewCourse(String courseText, TextEditingController textController, Color color) {
+    setState(() {
+      print("Adding new item");
+      Course course = Course(name: courseText, color: color);
+      courses.insert(0, course);
+      textController.clear();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text('To Do List'),
+          actions: <Widget>[
+             IconButton(
+              icon: const Icon(Icons.add_box),
+              tooltip: 'Add Course',
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (_) {
+                    return NewCourseDialog(onListAdded: _handleNewCourse);
+                  });
+              },
+            )
+
+          ]
         ),
         body: ListView(
           padding: const EdgeInsets.symmetric(vertical: 8.0),

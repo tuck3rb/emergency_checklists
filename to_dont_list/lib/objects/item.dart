@@ -1,6 +1,5 @@
 // Data class to keep the string and have an abbreviation function
 
-import 'package:flutter/material.dart';
 import 'package:to_dont_list/objects/course.dart';
 
 class Item {

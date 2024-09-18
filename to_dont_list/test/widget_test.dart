@@ -11,10 +11,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:to_dont_list/main.dart';
 import 'package:to_dont_list/objects/item.dart';
 import 'package:to_dont_list/widgets/to_do_items.dart';
+import 'package:to_dont_list/objects/course.dart';
 
 void main() {
   test('Item abbreviation should be first letter', () {
-    const item = Item(name: "add more todos", color: Color.fromARGB(255, 0, 0, 255));
+    const item = Item(name: "add more todos", course: Course(name: 'Course', color: Color.fromARGB(255, 42, 101, 42)));
     expect(item.abbrev(), "a");
   });
 
@@ -23,7 +24,7 @@ void main() {
     await tester.pumpWidget(MaterialApp(
         home: Scaffold(
             body: ToDoListItem(
-                item: const Item(name: "test", color: Color.fromARGB(255, 0, 0, 0)),
+                item: const Item(name: "test", course: Course(name: 'Course', color: Color.fromARGB(255, 42, 101, 42))),
                 completed: true,
                 onListChanged: (Item item, bool completed) {},
                 onDeleteItem: (Item item) {}))));
@@ -39,7 +40,7 @@ void main() {
     await tester.pumpWidget(MaterialApp(
         home: Scaffold(
             body: ToDoListItem(
-                item: const Item(name: "test", color: Color.fromARGB(255, 150, 150, 150)),
+                item: const Item(name: "test", course: Course(name: 'Course', color: Color.fromARGB(255, 42, 101, 42))),
                 completed: true,
                 onListChanged: (Item item, bool completed) {},
                 onDeleteItem: (Item item) {}))));

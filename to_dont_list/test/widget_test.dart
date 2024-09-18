@@ -5,6 +5,8 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -88,6 +90,53 @@ void main() {
     await tester.tap(find.byKey(const Key("OKButton")));
     await tester.pump();
     expect(find.text("hi"), findsOneWidget);
+
+    final listItemFinder = find.byType(ToDoListItem);
+
+    expect(listItemFinder, findsNWidgets(2));
+  });
+  testWidgets('Clicking and Typing adds course to courseList and can be used by ToDoList', (tester) async {
+    Key cnKey = Key('CN');
+    Key rKey = Key('r');
+    Key gKey = Key('g');
+    Key bKey = Key('b');
+    Key okKey = Key('OKButton');
+    Key hwKey = Key('HW');
+
+    await tester.pumpWidget(const MaterialApp(home: ToDoList()));
+
+    expect(find.byKey(cnKey), findsNothing);
+
+    await tester.tap(find.byType(IconButton));
+    await tester.pump();
+    expect(find.text('hello'), findsNothing);
+
+    await tester.enterText(find.byKey(cnKey), 'hello');
+    await tester.pump();
+    expect(find.text('hello'), findsOneWidget);
+
+    await tester.enterText(find.byKey(rKey), '150');
+    await tester.pump();
+    expect(find.text('150'), findsOneWidget);
+
+    await tester.enterText(find.byKey(gKey), '155');
+    await tester.pump();
+    expect(find.text('155'), findsOneWidget);
+
+    await tester.enterText(find.byKey(bKey), '160');
+    await tester.pump();
+    expect(find.text('160'), findsOneWidget);
+
+    await tester.tap(find.byKey(okKey));
+    await tester.pump();
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pump();
+    await tester.enterText(find.byKey(hwKey), 'yo');
+    await tester.pump();
+    await tester.enterText(find.byKey(cnKey), 'hello');
+    await tester.pump();
+    await tester.tap(find.byKey(okKey));
+    await tester.pump();
 
     final listItemFinder = find.byType(ToDoListItem);
 

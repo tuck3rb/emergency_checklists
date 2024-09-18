@@ -61,40 +61,15 @@ class _ToDoListState extends State<ToDoList> {
     });
   }
 
-   void _handleCourseListChanged(Course course, bool completed) {
-    setState(() {
-      // When a user changes what's in the list, you need
-      // to change _itemSet inside a setState call to
-      // trigger a rebuild.
-      // The framework then calls build, below,
-      // which updates the visual appearance of the app.
-
-      courses.remove(course);
-      if (!completed) {
-        print("Completing");
-        _courseSet.add(course);
-        courses.add(course);
-      } else {
-        print("Making Undone");
-        _courseSet.remove(course);
-        courses.insert(0, course);
-      }
-    });
-  }
-
-  void _handleDeleteCourse(Course course) {
-    setState(() {
-      print("Deleting course");
-      courses.remove(course);
-    });
-  }
-
-  void _handleNewCourse(String courseText, TextEditingController textController, Color color) {
+  void _handleNewCourse(String courseText, TextEditingController textController, String r, TextEditingController rController, String g, TextEditingController gController, String b, TextEditingController bController) {
     setState(() {
       print("Adding new course");
-      Course course = Course(name: courseText, color: color);
+      Course course = Course(name: courseText, color: _getColor(r, g, b));
       courses.insert(0, course);
       textController.clear();
+      rController.clear();
+      gController.clear();
+      bController.clear();
     });
   }
 
@@ -105,6 +80,22 @@ class _ToDoListState extends State<ToDoList> {
       }
     }
     return -1;
+  }
+
+  Color _getColor(String r, String g, String b) {
+    int rValue = 0;
+    int gValue = 0;
+    int bValue = 0;
+
+    try {
+      rValue = int.parse(r);
+      gValue = int.parse(g);
+      bValue = int.parse(b);
+    }catch (e) {
+      print('An rgb value was not an Integer - using basic color');
+    }
+
+    return Color.fromARGB(255, rValue, gValue, bValue);
   }
 
   @override

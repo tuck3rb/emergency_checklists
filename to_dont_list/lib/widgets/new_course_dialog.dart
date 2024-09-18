@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-typedef ToDoListAddedCallback = Function(
-    String value, TextEditingController textController, Color color);
+typedef CourseAddedCallback = Function(
+    String value, TextEditingController textController, String r, TextEditingController rController, String g, TextEditingController gController, String b, TextEditingController bController);
 
 class NewCourseDialog extends StatefulWidget {
   const NewCourseDialog({
@@ -9,7 +9,7 @@ class NewCourseDialog extends StatefulWidget {
     required this.onListAdded,
   });
 
-  final ToDoListAddedCallback onListAdded;
+  final CourseAddedCallback onListAdded;
 
   @override
   State<NewCourseDialog> createState() => _NewCourseDialogState();
@@ -18,25 +18,63 @@ class NewCourseDialog extends StatefulWidget {
 class _NewCourseDialogState extends State<NewCourseDialog> {
   // Dialog with text from https://www.appsdeveloperblog.com/alert-dialog-with-a-text-field-in-flutter/
   final TextEditingController _inputController = TextEditingController();
+  final TextEditingController _rController = TextEditingController();
+  final TextEditingController _gController = TextEditingController();
+  final TextEditingController _bController = TextEditingController();
   final ButtonStyle yesStyle = ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 20), backgroundColor: Colors.green);
   final ButtonStyle noStyle = ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 20), backgroundColor: Colors.red);
 
   String valueText = "";
+  String r = "";
+  String g = "";
+  String b = "";
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Course to add:'),
-      content: TextField(
-        onChanged: (value) {
-          setState(() {
-            valueText = value;
-          });
-        },
-        controller: _inputController,
-        decoration: const InputDecoration(hintText: "type something here"),
+      content: Column(
+        children: <Widget>[
+          TextField(
+            onChanged: (value) {
+              setState(() {
+                valueText = value;
+              });
+            },
+            controller: _inputController,
+            decoration: const InputDecoration(hintText: "type something here"),
+          ),
+          TextField(
+            onChanged: (value) {
+              setState(() {
+                r = value;
+              });
+            },
+            controller: _rController,
+            decoration: const InputDecoration(hintText: 'Enter red value here as an integer'),
+          ),
+          TextField(
+            onChanged: (value) {
+              setState(() {
+                g = value;
+              });
+            },
+            controller: _gController,
+            decoration: const InputDecoration(hintText: 'Enter green value here as an integer'),
+          ),
+          TextField(
+            onChanged: (value) {
+              setState(() {
+                b = value;
+              });
+            },
+            controller: _bController,
+            decoration: const InputDecoration(hintText: 'Enter blue value here as an integer'),
+          )
+
+        ]
       ),
       actions: <Widget>[
         ValueListenableBuilder<TextEditingValue>(
@@ -48,7 +86,7 @@ class _NewCourseDialogState extends State<NewCourseDialog> {
               onPressed: value.text.isNotEmpty
                   ? () {
                       setState(() {
-                        widget.onListAdded(valueText, _inputController, const Color.fromARGB(255, 25, 150, 50));
+                        widget.onListAdded(valueText, _inputController, r, _rController, g, _gController, b, _bController);
                         Navigator.pop(context);
                       });
                     }

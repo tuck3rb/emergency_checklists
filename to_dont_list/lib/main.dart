@@ -15,7 +15,7 @@ class ToDoList extends StatefulWidget {
 
 class _ToDoListState extends State<ToDoList> {
   final List<Course> courses = [const Course(name: "Course", color: Color.fromARGB(255, 42, 101, 42))];
-  final List<Item> items = [const Item(name: "add more todos", course: Course(name: 'Course', color: Color.fromARGB(255, 42, 101, 42)))];
+  final List<Item> items = [const Item(name: "First Homework", course: Course(name: 'Course', color: Color.fromARGB(255, 42, 101, 42)))];
   final _itemSet = <Item>{};
 
   void _handleListChanged(Item item, bool completed) {
@@ -101,7 +101,7 @@ class _ToDoListState extends State<ToDoList> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('To Do List'),
+          title: const Text('Homework List'),
           actions: <Widget>[
              IconButton(
               icon: const Icon(Icons.add_box),

@@ -17,7 +17,6 @@ class _ToDoListState extends State<ToDoList> {
   final List<Course> courses = [const Course(name: "Course", color: Color.fromARGB(255, 42, 101, 42))];
   final List<Item> items = [const Item(name: "add more todos", course: Course(name: 'Course', color: Color.fromARGB(255, 42, 101, 42)))];
   final _itemSet = <Item>{};
-  final _courseSet = <Course>{};
 
   void _handleListChanged(Item item, bool completed) {
     setState(() {

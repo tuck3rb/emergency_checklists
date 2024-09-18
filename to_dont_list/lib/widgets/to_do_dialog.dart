@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:to_dont_list/objects/course.dart';
 
 typedef ToDoListAddedCallback = Function(
     String value, TextEditingController textController, String courseName, TextEditingController textController2);

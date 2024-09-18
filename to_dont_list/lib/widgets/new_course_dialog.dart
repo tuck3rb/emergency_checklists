@@ -44,7 +44,7 @@ class _NewCourseDialogState extends State<NewCourseDialog> {
               });
             },
             controller: _inputController,
-            decoration: const InputDecoration(hintText: "type something here"),
+            decoration: const InputDecoration(hintText: "type the course name here"),
           ),
           TextField(
             onChanged: (value) {
@@ -53,7 +53,7 @@ class _NewCourseDialogState extends State<NewCourseDialog> {
               });
             },
             controller: _rController,
-            decoration: const InputDecoration(hintText: 'Enter red value here as an integer'),
+            decoration: const InputDecoration(hintText: 'Enter red value here from 0-255'),
           ),
           TextField(
             onChanged: (value) {
@@ -62,7 +62,7 @@ class _NewCourseDialogState extends State<NewCourseDialog> {
               });
             },
             controller: _gController,
-            decoration: const InputDecoration(hintText: 'Enter green value here as an integer'),
+            decoration: const InputDecoration(hintText: 'Enter green value here from 0-255'),
           ),
           TextField(
             onChanged: (value) {
@@ -71,7 +71,7 @@ class _NewCourseDialogState extends State<NewCourseDialog> {
               });
             },
             controller: _bController,
-            decoration: const InputDecoration(hintText: 'Enter blue value here as an integer'),
+            decoration: const InputDecoration(hintText: 'Enter blue value here from 0-255'),
           )
 
         ]

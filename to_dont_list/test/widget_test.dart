@@ -66,17 +66,24 @@ void main() {
   });
 
   testWidgets('Clicking and Typing adds item to ToDoList', (tester) async {
+    Key hwKey = Key('HW');
+    Key cnKey = Key('CN');
+    
     await tester.pumpWidget(const MaterialApp(home: ToDoList()));
 
-    expect(find.byType(TextField), findsNothing);
+    expect(find.byKey(hwKey), findsNothing);
 
     await tester.tap(find.byType(FloatingActionButton));
     await tester.pump(); // Pump after every action to rebuild the widgets
     expect(find.text("hi"), findsNothing);
 
-    await tester.enterText(find.byType(TextField), 'hi');
+    await tester.enterText(find.byKey(hwKey), 'hi');
     await tester.pump();
     expect(find.text("hi"), findsOneWidget);
+
+    await tester.enterText(find.byKey(cnKey), 'Course');
+    await tester.pump();
+    expect(find.text('Course'), findsOneWidget);
 
     await tester.tap(find.byKey(const Key("OKButton")));
     await tester.pump();
@@ -87,24 +94,5 @@ void main() {
     expect(listItemFinder, findsNWidgets(2));
   });
 
-  testWidgets('Course dialog adds Course to course list', (tester) async {
-    await tester.pumpWidget(const MaterialApp(home: ToDoList()));
 
-    expect(find.byType(TextField), findsNothing);
-
-    await tester.tap(find.byType(IconButton));
-    await tester.pump();
-    expect(find.text("hi"), findsNothing);
-
-    await tester.enterText(find.byType(TextField), 'hi');
-    await tester.pump();
-    expect(find.text('hi'), findsOneWidget);
-
-    await tester.tap(find.byKey(const Key("OKButton")));
-    await tester.pump();
-    expect(find.text("hi"), findsNothing);
-
-  });
-
-  // One to test the tap and press actions on the items?
 }

@@ -43,6 +43,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
               },
               controller: _inputController,
               decoration: const InputDecoration(hintText: "Put HW name here"),
+              key: const Key('HW'),
             ),
             TextField(
               onChanged: (value) {
@@ -52,6 +53,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
               },
               controller: _inputController2,
               decoration: const InputDecoration(hintText: "Put Course name here"),
+              key: const Key('CN'),
             )
           ],
         ),

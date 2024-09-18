@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:to_dont_list/objects/course.dart';
 
 typedef ToDoListAddedCallback = Function(
-    String value, TextEditingController textController, Course course);
+    String value, TextEditingController textController, String courseName, TextEditingController textController2);
 
 class ToDoDialog extends StatefulWidget {
   const ToDoDialog({
@@ -19,26 +19,43 @@ class ToDoDialog extends StatefulWidget {
 class _ToDoDialogState extends State<ToDoDialog> {
   // Dialog with text from https://www.appsdeveloperblog.com/alert-dialog-with-a-text-field-in-flutter/
   final TextEditingController _inputController = TextEditingController();
+  final TextEditingController _inputController2 = TextEditingController();
   final ButtonStyle yesStyle = ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 20), backgroundColor: Colors.green);
   final ButtonStyle noStyle = ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 20), backgroundColor: Colors.red);
 
   String valueText = "";
+  String valueText2 = "";
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Item To Add'),
-      content: TextField(
-        onChanged: (value) {
-          setState(() {
-            valueText = value;
-          });
-        },
-        controller: _inputController,
-        decoration: const InputDecoration(hintText: "type something here"),
-      ),
+      content: 
+        Column(
+          children: <Widget>[
+            TextField(
+              onChanged: (value) {
+                setState(() {
+                  valueText = value;
+                });
+              },
+              controller: _inputController,
+              decoration: const InputDecoration(hintText: "Put HW name here"),
+            ),
+            TextField(
+              onChanged: (value) {
+                setState(() {
+                  valueText2 = value;
+                });
+              },
+              controller: _inputController2,
+              decoration: const InputDecoration(hintText: "Put Course name here"),
+            )
+          ],
+        ),
+        
       actions: <Widget>[
         ValueListenableBuilder<TextEditingValue>(
           valueListenable: _inputController,
@@ -49,7 +66,7 @@ class _ToDoDialogState extends State<ToDoDialog> {
               onPressed: value.text.isNotEmpty
                   ? () {
                       setState(() {
-                        widget.onListAdded(valueText, _inputController, const Course(name: 'Course', color: Color.fromARGB(255, 0, 250, 255)));
+                        widget.onListAdded(valueText, _inputController, valueText2, _inputController2);
                         Navigator.pop(context);
                       });
                     }

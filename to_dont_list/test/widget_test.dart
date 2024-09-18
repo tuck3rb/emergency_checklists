@@ -87,5 +87,24 @@ void main() {
     expect(listItemFinder, findsNWidgets(2));
   });
 
+  testWidgets('Course dialog adds Course to course list', (tester) async {
+    await tester.pumpWidget(const MaterialApp(home: ToDoList()));
+
+    expect(find.byType(TextField), findsNothing);
+
+    await tester.tap(find.byType(IconButton));
+    await tester.pump();
+    expect(find.text("hi"), findsNothing);
+
+    await tester.enterText(find.byType(TextField), 'hi');
+    await tester.pump();
+    expect(find.text('hi'), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key("OKButton")));
+    await tester.pump();
+    expect(find.text("hi"), findsNothing);
+
+  });
+
   // One to test the tap and press actions on the items?
 }

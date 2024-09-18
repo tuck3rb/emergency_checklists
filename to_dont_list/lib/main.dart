@@ -47,12 +47,17 @@ class _ToDoListState extends State<ToDoList> {
     });
   }
 
-  void _handleNewItem(String itemText, TextEditingController textController, Course course) {
+  void _handleNewItem(String itemText, TextEditingController textController, String courseName, TextEditingController textController2) {
     setState(() {
-      print("Adding new item");
-      Item item = Item(name: itemText, course: course);
-      items.insert(0, item);
-      textController.clear();
+      int i = _checkCourseList(courseName);
+      if(i != -1) {
+        print("Adding new item");
+        Item item = Item(name: itemText, course: courses[i]);
+        items.insert(0, item);
+        textController.clear();
+      }else {
+        print("Invalid Course Name");
+      }
     });
   }
 
@@ -86,11 +91,20 @@ class _ToDoListState extends State<ToDoList> {
 
   void _handleNewCourse(String courseText, TextEditingController textController, Color color) {
     setState(() {
-      print("Adding new item");
+      print("Adding new course");
       Course course = Course(name: courseText, color: color);
       courses.insert(0, course);
       textController.clear();
     });
+  }
+
+  int _checkCourseList(String check) {
+    for(int i=0; i < courses.length; i++) {
+      if(courses[i].name == check) {
+          return i;
+      }
+    }
+    return -1;
   }
 
   @override

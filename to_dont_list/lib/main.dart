@@ -60,15 +60,12 @@ class _ToDoListState extends State<ToDoList> {
     });
   }
 
-  void _handleNewCourse(String courseText, TextEditingController textController, String r, TextEditingController rController, String g, TextEditingController gController, String b, TextEditingController bController) {
+  void _handleNewCourse(String courseText, TextEditingController textController, Color color) {
     setState(() {
       print("Adding new course");
-      Course course = Course(name: courseText, color: _getColor(r, g, b));
+      Course course = Course(name: courseText, color: color);
       courses.insert(0, course);
       textController.clear();
-      rController.clear();
-      gController.clear();
-      bController.clear();
     });
   }
 

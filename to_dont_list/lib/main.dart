@@ -131,7 +131,7 @@ class _ToDoListState extends State<ToDoList> {
               showDialog(
                   context: context,
                   builder: (_) {
-                    return ToDoDialog(onListAdded: _handleNewItem);
+                    return ToDoDialog(onListAdded: _handleNewItem, courses: courses,);
                   });
             }));
   }

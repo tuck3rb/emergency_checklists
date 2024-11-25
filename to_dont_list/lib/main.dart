@@ -16,6 +16,7 @@ class ToDoList extends StatefulWidget {
 class _ToDoListState extends State<ToDoList> {
   final List<ChecklistItem> items = [const ChecklistItem(name: "add more todos")];
   final _itemSet = <ChecklistItem>{};
+  List<String> displaychecklists = checklists;
 
   void _handleListChanged(ChecklistItem item, bool completed) {
     setState(() {
@@ -75,10 +76,14 @@ class _ToDoListState extends State<ToDoList> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [IconButton(onPressed: () async {
+            await Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => SettingsScreen()));} , icon: Icon(Icons.settings))],
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
-        children: checklists.map((checklistName) {
+        children: displaychecklists.map((checklistName) {
           return ListTile(
             leading: const CircleAvatar(
               backgroundColor: Colors.red,
@@ -103,6 +108,48 @@ class _ToDoListState extends State<ToDoList> {
     );
   }
 }
+
+class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
+  
+
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  bool? value = false;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Settings'),
+        ),
+    
+      body: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        children: checklists.map((checklistName) {
+          return ListTile(
+            leading: null,
+            title: Text(checklistName),
+            onTap: () {},
+            trailing: 
+                      Checkbox(
+                        value: value,
+                        onChanged: (bool? newValue) {
+                          setState(() {
+                            value = newValue;
+                            
+                          });
+                        },
+                      ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+  }
+
 
 class ChecklistDetailsScreen extends StatefulWidget {
   final String title;

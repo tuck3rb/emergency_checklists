@@ -9,6 +9,7 @@ List<String> checklists = [
   'Forced Landing',
   'Spin Recovery',
 ];
+List<String> selected = List.from(checklists);
 
 Map<String, List<String>> checklistSteps = {
   'Engine Failure (In-Flight Restart)': [

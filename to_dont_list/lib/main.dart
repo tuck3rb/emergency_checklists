@@ -1,6 +1,7 @@
 // Started with https://docs.flutter.dev/development/ui/widgets-intro
 import 'package:flutter/material.dart';
 import 'package:to_dont_list/objects/checklist_item.dart';
+import 'package:to_dont_list/settings.dart';
 import 'package:to_dont_list/widgets/checklist_list_item.dart';
 import 'package:to_dont_list/widgets/checklist_dialog.dart';
 import 'checklist_data.dart';
@@ -16,6 +17,7 @@ class ToDoList extends StatefulWidget {
 class _ToDoListState extends State<ToDoList> {
   final List<ChecklistItem> items = [const ChecklistItem(name: "add more todos")];
   final _itemSet = <ChecklistItem>{};
+  List<String> displaychecklists = checklists;
 
   void _handleListChanged(ChecklistItem item, bool completed) {
     setState(() {
@@ -63,6 +65,7 @@ class _ToDoListState extends State<ToDoList> {
             setState(() {
               checklists.add(newChecklistName);
               checklistSteps[newChecklistName] = [];
+              selected.add(newChecklistName);
             });
           },
         );
@@ -70,15 +73,24 @@ class _ToDoListState extends State<ToDoList> {
     );
   }
 
+  void _setChecklist(){
+    setState(() {
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [IconButton(onPressed: () async {
+            await Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => SettingsScreen(passedlist: [displaychecklists], setChecklist: _setChecklist,)));} , icon: Icon(Icons.settings))],
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
-        children: checklists.map((checklistName) {
+        children: selected.map((checklistName) {
           return ListTile(
             leading: const CircleAvatar(
               backgroundColor: Colors.red,
@@ -103,6 +115,10 @@ class _ToDoListState extends State<ToDoList> {
     );
   }
 }
+
+
+
+
 
 class ChecklistDetailsScreen extends StatefulWidget {
   final String title;

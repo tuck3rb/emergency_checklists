@@ -86,7 +86,7 @@ class _ToDoListState extends State<ToDoList> {
         actions: [IconButton(onPressed: () async {
             await Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => SettingsScreen(passedlist: [displaychecklists], setChecklist: _setChecklist,)));} , icon: Icon(Icons.settings))],
+                builder: (context) => SettingsScreen(passedlist: [displaychecklists], setChecklist: _setChecklist,)));} , icon: const Icon(Icons.settings))],
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 8.0),

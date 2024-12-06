@@ -38,19 +38,9 @@ class _AddChecklistDialogState extends State<AddChecklistDialog> {
         controller: _inputController,
         decoration: const InputDecoration(hintText: "Checklist name"),
       ),
-      actions: <Widget>[
-        ElevatedButton(
-          key: const Key("OKButton"),
-          style: yesStyle,
-          child: const Text('OK'),
-          onPressed: () {
-            setState(() {
-              widget.onListAdded(valueText, _inputController);
-              Navigator.pop(context);
-            });
-          },
-        ),
 
+      
+      actions: <Widget>[
         // https://stackoverflow.com/questions/52468987/how-to-turn-disabled-button-into-enabled-button-depending-on-conditions
         ValueListenableBuilder<TextEditingValue>(
           valueListenable: _inputController,
@@ -68,6 +58,17 @@ class _AddChecklistDialogState extends State<AddChecklistDialog> {
                   : null,
               child: const Text('Cancel'),
             );
+          },
+        ),
+        ElevatedButton(
+          key: const Key("OKButton"),
+          style: yesStyle,
+          child: const Text('OK'),
+          onPressed: () {
+            setState(() {
+              widget.onListAdded(valueText, _inputController);
+              Navigator.pop(context);
+            });
           },
         ),
       ],
